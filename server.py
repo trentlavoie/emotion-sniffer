@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, url_for, send_from_directory
+from flask import Flask, request, redirect, url_for, send_from_directory, render_template
 from werkzeug import secure_filename
 import indicoio
 from PIL import Image
@@ -28,16 +28,17 @@ def index():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('pic', pic_name=filename))
-    return """
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    <p>%s</p>
-    """ % "<br>".join(os.listdir(app.config['UPLOAD_FOLDER'],))
+    return render_template('index.html',title='Welcome')
+    # return """
+    # <!doctype html>
+    # <title>Upload new File</title>
+    # <h1>Upload new File</h1>
+    # <form action="" method=post enctype=multipart/form-data>
+    #   <p><input type=file name=file>
+    #      <input type=submit value=Upload>
+    # </form>
+    # <p>%s</p>
+    # """ % "<br>".join(os.listdir(app.config['UPLOAD_FOLDER'],))
 
 @app.route('/pic/<pic_name>')
 def pic(pic_name):
@@ -47,16 +48,17 @@ def pic(pic_name):
     results = indicoio.fer(pixel_array, detect=False)
     emotion_results = max(results.iteritems(), key=operator.itemgetter(1))[0]
     emotion_results = (emotion_results, results[emotion_results])
-    return """
-    <!doctype html>
-    <title>Image Details</title>
-    <h1>Image Details</h1>
-    <img src='{}' style='max-width:500px; max-height:400px; image-orientation: from-image;'>
-    <p>{}</p>
-    <br>
-    <p>{}</p>
-    </html>
-    """.format(pic_url, emotion_results[0], results)
+    return render_template("picture.html", title= "Results", image_src = pic_url, emotion = emotion_results[0])
+    # return """
+    # <!doctype html>
+    # <title>Image Details</title>
+    # <h1>Image Details</h1>
+    # <img src='{}' style='max-width:500px; max-height:400px; image-orientation: from-image;'>
+    # <p>{}</p>
+    # <br>
+    
+    # </html>
+    # """.format(pic_url, emotion_results[0])
 
 # @app.route('/uploads/<pic_name>')
 # def uploads(pic_name):
