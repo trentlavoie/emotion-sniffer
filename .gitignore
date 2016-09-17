@@ -1,3 +1,9 @@
+uploads/
+statics/images/uploads
+pics/
+config.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
