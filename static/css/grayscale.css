@@ -321,3 +321,8 @@ body {
   width:100px;
 
 }
+
+.section-two{
+  background: url(../img/water-bg.jpg) no-repeat bottom center scroll;
+  background-color: black;
+}

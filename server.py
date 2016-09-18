@@ -41,7 +41,27 @@ def pic(pic_name):
     results = indicoio.fer(pixel_array, detect=False)
     emotion_results = max(results.iteritems(), key=operator.itemgetter(1))[0]
     emotion_results = (emotion_results, results[emotion_results])
-    return render_template("picture.html", title= "Results", image_src = pic_url, emotion = emotion_results[0])
+    more_details_link = url_for('details', pic_name = pic_name)
+    return render_template("picture.html", title= "Results", image_src = pic_url, emotion = emotion_results[0], more_details_link = more_details_link)
+
+@app.route('/details/<pic_name>')
+def details(pic_name):
+    pic_url = url_for('static',filename='images/uploads/{}'.format(pic_name))
+    image = Image.open("static/images/uploads/{}".format(pic_name))
+    pixel_array = np.array(image)
+    results = indicoio.fer(pixel_array, detect=False)
+    emotion_results = max(results.iteritems(), key=operator.itemgetter(1))[0]
+    emotion_results = (emotion_results, results[emotion_results])
+    return render_template("picture_more_details.html", 
+        title= "Results", 
+        image_src = pic_url, 
+        emotion_result = emotion_results[0],
+        emotion_angry = results["Angry"],
+        emotion_sad = results["Sad"],
+        emotion_happy = results["Happy"],
+        emotion_fear = results["Fear"],
+        emotion_suprise = results["Surprise"],
+        emotion_neutral = results["Neutral"])
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)

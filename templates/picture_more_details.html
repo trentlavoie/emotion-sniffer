@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+	<center>
+	<br>
+    <h2>Image Details</h2>
+    <img src='{{image_src}}' style='max-width:500px; max-height:400px; image-orientation: from-image;'>
+    <br>
+    <br>
+    <p>We guessed {{emotion_result}} <br>
+    Although, here is your emotional breakdown: <br><br>
+    Angry: {{emotion_angry}}<br>
+    Sad: {{emotion_sad}}<br>
+    Happy: {{emotion_happy}}<br>
+    Fear: {{emotion_fear}}<br>
+    Neutral: {{emotion_neutral}} </p>
+    </center>
+    
+{% endblock %}
