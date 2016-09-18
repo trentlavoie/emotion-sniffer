@@ -1,8 +1,46 @@
 {% extends "layout.html" %}
 {% block body %}
-    <form action="" method=post enctype=multipart/form-data>
+	 <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Symmetrical Snuffle</h1>
+                        <p class="intro-text">Guessing human emotions. One picture at a time.
+                            <br>Let's get started.</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>
+<!-- About Section -->
+    <section class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Upload a pic</h2>
+                <img src="/static/img/home-alone.jpg" style="max-width:200px;">
+                <section id="about" ></section>
+             	<br>
+                <p>Upload or take a picture. Any picture you'd like. Please only one face per image. Ensure the subject is facing the camera and is zoomed in enough.</p>
+                <center>
+                <form action="" method=post enctype=multipart/form-data>
         <!-- <input type=file name=file> -->
-        <input type=file name=file accept="image/*;capture=camera" value="Take a picture">
-        <input type=submit value=Upload>
-    </form>
+		        <input class="btn" type=file name=file accept="image/*;capture=camera" value="Take a picture">
+ 				<br>
+
+		        <div class="custom-submit-btn-div">
+		        <input class="btn glyphicon glyphicon-menu-right custom-submit-btn" type=submit value="Submit">
+		        </div>
+		        </center>
+		    </form>
+		    <div style="margin-bottom:50px;">&nbsp;</div>
+            </div>
+        </div>
+</section>
+
+
 {% endblock %}
